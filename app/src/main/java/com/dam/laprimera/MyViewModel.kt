@@ -2,6 +2,7 @@ package com.dam.laprimera
 
 import android.util.Log
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -18,6 +19,9 @@ class MyViewModel() : ViewModel() {
     //usamos mutable, ya que la queremos modificar y observar cuando cambia
     var _numbers = mutableStateOf(0)
 
+    //crear una lista mutable
+    val numbers= mutableStateListOf<Int>()
+
     // Dos maneras diferentes de definir un estado
     // con el = necesitamos utilizar value
     var counter=mutableStateOf(0)
@@ -33,8 +37,16 @@ class MyViewModel() : ViewModel() {
      * Crear entero random
      */
     fun crearRandom() {
-        _numbers.value = (0..10).random()
-        Log.d(TAG_LOG, "Creamos random ${_numbers.value}")
+        val randomNumber=(0..3).random()
+        numbers.add(randomNumber)
+        Log.d(TAG_LOG,"Creamos random $randomNumber")
+
+        //Imprime la lista completa
+        for(numero in numbers){
+            Log.d(TAG_LOG,"Números aleatorio: $numero")
+        }
+        /*_numbers.value = (0..10).random()
+        Log.d(TAG_LOG, "Creamos random ${_numbers.value}")*/
     }
 
     /**
@@ -44,6 +56,9 @@ class MyViewModel() : ViewModel() {
         return _numbers.value
     }
 
+    fun getListaRandom(): List<Int> {
+        return numbers.toList()
+    }
     /**
      * Contador de clic
      */

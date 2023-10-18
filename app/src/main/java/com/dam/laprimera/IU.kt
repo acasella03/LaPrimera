@@ -39,10 +39,9 @@ fun InterfazUsuario(miViewModel: MyViewModel){
 
     //un cuadro de texto para mostrar los numeros
     Text(
-        text="Numeros: ${miViewModel.getNumero()}",
+        text="Numeros: ${/*miViewModel.getNumero()*/miViewModel.getListaRandom()}",
         modifier = Modifier
-            .padding(150.dp)
-            .offset(y = 100.dp)
+            .offset(y = 160.dp)
     )
 
     // un boton para generar numeros aleatorios
@@ -52,6 +51,7 @@ fun InterfazUsuario(miViewModel: MyViewModel){
             miViewModel.crearRandom()},
         modifier = Modifier
             .padding(vertical = 300.dp, horizontal = 100.dp) // Ajusta el espacio vertical según tus necesidades
+            .offset(y=100.dp)
     ) {
         Image(
             painter = painterResource(id = R.drawable.monkey_emojis_4),
