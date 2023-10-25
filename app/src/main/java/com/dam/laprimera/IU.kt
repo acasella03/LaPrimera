@@ -106,7 +106,7 @@ fun Login(miViewModel: MyViewModel) {
 }
 @Composable
 fun SimonGameUI(miViewModel: MyViewModel) {
-
+    var isStarted by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -144,6 +144,17 @@ fun SimonGameUI(miViewModel: MyViewModel) {
                 ColorButton(SimonColor.YELLOW)
             }
         }
+        // Botón para iniciar o reiniciar el contador
+        Button(
+            onClick = {
+                isStarted = !isStarted
+            },
+            modifier = Modifier
+                .padding(8.dp)
+        ) {
+            Text(if (isStarted) "Reset" else "Start")
+        }
+
         // Botón para incrementar el contador
         Button(
             onClick = { miViewModel.contadorClic() },
