@@ -97,6 +97,10 @@ fun Login(miViewModel: MyViewModel) {
 
 }
 @Composable
+fun SimonDice(){
+
+}
+@Composable
 fun Greeting(NAME: String, modifier: Modifier = Modifier) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
