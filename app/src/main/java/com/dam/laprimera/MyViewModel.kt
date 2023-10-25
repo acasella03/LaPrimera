@@ -22,7 +22,7 @@ class MyViewModel : ViewModel() {
     }
 
     fun crearRandom() {
-        val randomNumber = (0..3).random()
+        val randomNumber = (0..10).random()
         val newNumbers = appState.numbers.toMutableList()
         newNumbers.add(randomNumber)
         Log.d(TAG_LOG, "Creamos random $randomNumber")
