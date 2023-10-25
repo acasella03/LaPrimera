@@ -1,6 +1,7 @@
 package com.dam.laprimera
 
 import android.util.Log
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -8,6 +9,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
+enum class SimonColor {
+    RED, GREEN, BLUE, YELLOW
+}
 /**
  * Inicializa y modifica los datos de la app
  */
@@ -21,6 +25,14 @@ class MyViewModel() : ViewModel() {
 
     //crear una lista mutable
     val numbers= mutableStateListOf<Int>()
+
+    // Variable para almacenar el resultado del juego
+    private val _gameResult = mutableStateOf(false)
+    val gameResult: State<Boolean> = _gameResult
+
+    // Variable para almacenar la secuencia
+    private val _sequence = mutableStateOf(emptyList<SimonColor>())
+    val sequence: State<List<SimonColor>> = _sequence
 
     // Dos maneras diferentes de definir un estado
     // con el = necesitamos utilizar value

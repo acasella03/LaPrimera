@@ -2,10 +2,13 @@ package com.dam.laprimera
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -50,8 +53,11 @@ fun InterfazUsuario(miViewModel: MyViewModel){
             Log.d(TAG_LOG,"Dentro del onClick")
             miViewModel.crearRandom()},
         modifier = Modifier
-            .padding(vertical = 300.dp, horizontal = 100.dp) // Ajusta el espacio vertical según tus necesidades
-            .offset(y=100.dp)
+            .padding(
+                vertical = 250.dp,
+                horizontal = 100.dp
+            ) // Ajusta el espacio vertical según tus necesidades
+            .offset(y = 5.dp)
     ) {
         Image(
             painter = painterResource(id = R.drawable.monkey_emojis_4),
@@ -64,6 +70,7 @@ fun InterfazUsuario(miViewModel: MyViewModel){
     }
 
     Login(miViewModel = MyViewModel())
+    SimonGameUI(miViewModel = MyViewModel())
 
 }
 
@@ -97,8 +104,86 @@ fun Login(miViewModel: MyViewModel) {
 
 }
 @Composable
-fun SimonDice(){
+fun SimonGameUI(miViewModel: MyViewModel) {
 
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(100.dp).offset(y=150.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        SequenceDisplay(miViewModel.sequence.value)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(
+                verticalArrangement = Arrangement.SpaceBetween,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
+            ) {
+                ColorButton(SimonColor.RED)
+                ColorButton(SimonColor.GREEN)
+            }
+            Column(
+                verticalArrangement = Arrangement.SpaceBetween,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
+            ) {
+                ColorButton(SimonColor.BLUE)
+                ColorButton(SimonColor.YELLOW)
+            }
+        }
+        if (miViewModel.gameResult.value) {
+            Text("Victoria")
+        } else if (miViewModel.gameResult.value == false) {
+            Text("Derrota")
+        }
+    }
+    }
+
+@Composable
+fun SequenceDisplay(sequence: List<SimonColor>) {
+    Row(
+        horizontalArrangement = Arrangement.SpaceAround,
+        modifier = Modifier.padding(16.dp)
+    ) {
+        sequence.forEach { color ->
+            ColorButton(color = color)
+        }
+    }
+}
+
+@Composable
+fun ColorButton(color: SimonColor) {
+    val colorValue = when (color) {
+        SimonColor.RED -> Color.Red
+        SimonColor.GREEN -> Color.Green
+        SimonColor.BLUE -> Color.Blue
+        SimonColor.YELLOW -> Color.Yellow
+    }
+
+    Button(
+        onClick = { /* No se necesita hacer nada aquí */ },
+        modifier = Modifier
+            .size(100.dp)
+            .background(colorValue)
+            .padding(8.dp)
+    ) {}
+}
+
+@Composable
+fun ButtonRow(miViewModel: MyViewModel, onGameResult: (Boolean) -> Unit) {
+    Row(
+        horizontalArrangement = Arrangement.SpaceAround,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        ColorButton(SimonColor.RED)
+        ColorButton(SimonColor.GREEN)
+        ColorButton(SimonColor.BLUE)
+        ColorButton(SimonColor.YELLOW)
+    }
 }
 @Composable
 fun Greeting(NAME: String, modifier: Modifier = Modifier) {
