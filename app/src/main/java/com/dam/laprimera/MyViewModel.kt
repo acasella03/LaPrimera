@@ -15,6 +15,9 @@ class MyViewModel() : ViewModel() {
     //para que sea mas facil la etiqueta del log
     private val TAG_LOG: String = "Mensaje ViewModel"
 
+    // Utiliza la Data Class para mantener el estado de la aplicación
+    var appState by mutableStateOf(AppState(emptyList(), 0, ""))
+
     //esta va a ser nuestra lista para la secuencia random
     //usamos mutable, ya que la queremos modificar y observar cuando cambia
     var _numbers = mutableStateOf(0)
@@ -37,7 +40,7 @@ class MyViewModel() : ViewModel() {
      * Crear entero random
      */
     fun crearRandom() {
-        val randomNumber=(0..3).random()
+        val randomNumber=(0..10).random()
         numbers.add(randomNumber)
         Log.d(TAG_LOG,"Creamos random $randomNumber")
 
@@ -45,8 +48,7 @@ class MyViewModel() : ViewModel() {
         for(numero in numbers){
             Log.d(TAG_LOG,"Números aleatorio: $numero")
         }
-        /*_numbers.value = (0..10).random()
-        Log.d(TAG_LOG, "Creamos random ${_numbers.value}")*/
+        appState = appState.copy(numbers = numbers)
     }
 
     /**
@@ -63,7 +65,7 @@ class MyViewModel() : ViewModel() {
      * Contador de clic
      */
     fun contadorClic(){
-        counter.value++
+        appState = appState.copy(counter = appState.counter + 1)
     }
 
     /**
@@ -78,5 +80,9 @@ class MyViewModel() : ViewModel() {
      */
     fun getTexto():String{
         return name.value
+    }
+
+    fun setTexto(text: String) {
+        appState = appState.copy(name = text)
     }
 }

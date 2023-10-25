@@ -26,7 +26,7 @@ fun InterfazUsuario(miViewModel: MyViewModel){
 
     //un cuadro de texto para mostrar los numeros
     Text(
-        text="Numeros: ${/*miViewModel.getNumero()*/miViewModel.getListaRandom()}",
+        text="Numeros: ${miViewModel.appState.numbers}",
         modifier = Modifier
             .offset(y = 160.dp)
     )
@@ -60,13 +60,13 @@ fun Login(miViewModel: MyViewModel) {
     Column {
         // mostrar el contador de clics
         TextButton(onClick = { miViewModel.contadorClic() }, modifier= Modifier.offset(y=5.dp)) {
-            Text("CLICS: ${miViewModel.getContador()}")
+            Text("CLICS: ${miViewModel.appState.counter}")
         }
 
         // mientras no tecleamos mas de tres caracteres no se muestra el saludo
         if (miViewModel.name.value.length > 3) {
             Text(
-                text = "Nombre: ${miViewModel.getTexto()}!",
+                text = "Nombre: ${miViewModel.appState.name}!",
                 fontSize = 24.sp,
                 modifier = Modifier.offset(y=110.dp)
             )
