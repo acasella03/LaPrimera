@@ -110,7 +110,7 @@ fun SimonGameUI(miViewModel: MyViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(100.dp).offset(y=150.dp),
+            .padding(100.dp).offset(y=180.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -144,31 +144,42 @@ fun SimonGameUI(miViewModel: MyViewModel) {
                 ColorButton(SimonColor.YELLOW)
             }
         }
-        // Botón para iniciar o reiniciar el contador
-        Button(
-            onClick = {
-                isStarted = !isStarted
-            },
-            modifier = Modifier
-                .padding(8.dp)
+        Column(
+            modifier = Modifier.padding(1.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(if (isStarted) "Reset" else "Start")
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                // Botón para iniciar o reiniciar el contador
+                Button(
+                    onClick = {
+                        isStarted = !isStarted
+                    },
+                    modifier = Modifier
+                        .padding(8.dp)
+                ) {
+                    Text(if (isStarted) "Reset" else "Start")
+                }
+
+                // Botón para incrementar el contador
+                Button(
+                    onClick = { miViewModel.contadorClic() },
+                    modifier = Modifier
+                        .padding(8.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.baseline_play_circle_outline_24),
+                        contentDescription = "Contador",
+                        modifier = Modifier
+                            .size(40.dp) // Ajusta el tamaño de la imagen según tus necesidades
+
+                    )
+                }
+            }
         }
 
-        // Botón para incrementar el contador
-        Button(
-            onClick = { miViewModel.contadorClic() },
-            modifier = Modifier
-                .padding(8.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.baseline_play_circle_outline_24),
-                contentDescription = "Generar numeros",
-                modifier = Modifier
-                    .size(40.dp) // Ajusta el tamaño de la imagen según tus necesidades
-                    .padding(4.dp)
-            )
-        }
     }
     }
 
