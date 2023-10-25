@@ -26,7 +26,7 @@ fun InterfazUsuario(miViewModel: MyViewModel) {
 
     Text(
         text = "Numeros: ${miViewModel.appState.numbers}",
-        modifier = Modifier.offset(y = 160.dp)
+        modifier = Modifier.offset(y = 200.dp)
     )
 
     Button(
