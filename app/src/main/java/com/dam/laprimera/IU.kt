@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -113,6 +114,14 @@ fun SimonGameUI(miViewModel: MyViewModel) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // Cuadro de suma de rondas
+        if(miViewModel.getContador()<10){
+            Text("Rondas: ${miViewModel.getContador()}", modifier = Modifier.offset(x=100.dp))
+        }else{
+            Text("Rondas: ${miViewModel.getContador()}", modifier = Modifier.offset(x=100.dp), fontSize = 24.sp)
+        }
+
+
         SequenceDisplay(miViewModel.sequence.value)
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -135,10 +144,19 @@ fun SimonGameUI(miViewModel: MyViewModel) {
                 ColorButton(SimonColor.YELLOW)
             }
         }
-        if (miViewModel.gameResult.value) {
-            Text("Victoria")
-        } else if (miViewModel.gameResult.value == false) {
-            Text("Derrota")
+        // Botón para incrementar el contador
+        Button(
+            onClick = { miViewModel.contadorClic() },
+            modifier = Modifier
+                .padding(8.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.baseline_play_circle_outline_24),
+                contentDescription = "Generar numeros",
+                modifier = Modifier
+                    .size(40.dp) // Ajusta el tamaño de la imagen según tus necesidades
+                    .padding(4.dp)
+            )
         }
     }
     }
